@@ -7,7 +7,7 @@ API of this web app is created using Express Js and I have used concurrently pac
 Also, both the server and client are hosted in one platform by building the React app and serving the index.html of the build folder as a static file, from the server. You can visit the production of the
 project [HERE](https://sugartaste-fullstack.onrender.com). This project is hosted in render.com using their free tier web service.
 
-**To setup this project : **
+**To setup this project :**
 Clone or download the repo, Install all the dependancies using `npm install` in the root directory first and also install the dependancy of React client side code by commanding `cd client` 
 and `npm install` in the terminal. 
 
