@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../CartContext";
+import { motion } from "framer-motion";
+import axios from "axios";
 
 const Modal = ({ product, selectedColor, selectedSize }) => {
   const { quantity, setQuantity, modalOpen, setModalOpen } =
@@ -10,10 +12,40 @@ const Modal = ({ product, selectedColor, selectedSize }) => {
     if (quantity > 0) setQuantity(quantity - 1);
   };
 
+  const handleBuyNow = async () => {
+    try {
+      const orderData = {
+        quantity,
+        selectedColor,
+        selectedSize,
+      };
+
+      const response = await axios.post("/api/orders", orderData);
+
+      console.log("Order created:", response.data);
+      setModalOpen(false);
+      setQuantity(1);
+      alert("Order Saved to databese!");
+    } catch (error) {
+      alert("Color,Size and Quantity are required.");
+    }
+  };
+
   return (
     modalOpen && (
       <div className="modal-main d-grid">
-        <div className="modal-contents ">
+        <motion.div
+          initial={{ opacity: 0, y: 1000 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            ease: "easeOut",
+            duration: 1,
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
+          className="modal-contents "
+        >
           <div className="my-3">
             <button
               className="modal-cancel"
@@ -52,11 +84,11 @@ const Modal = ({ product, selectedColor, selectedSize }) => {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <button className="buy-now-btn">
+            <button className="buy-now-btn" onClick={handleBuyNow}>
               ${(product.price * quantity)?.toFixed(2)} Buy Now
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     )
   );

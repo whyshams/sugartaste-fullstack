@@ -13,7 +13,9 @@ mongoose
   .catch((err) => console.log(err));
 
 const productRoutes = require("./routes/ProductRoutes.js");
+const orderRoutes = require("./routes/OrderRoutes.js");
 app.use("/api/products", productRoutes);
+app.use("/api/orders", orderRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();

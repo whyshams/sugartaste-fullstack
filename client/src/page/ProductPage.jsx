@@ -8,6 +8,8 @@ import { IoIosArrowForward } from "react-icons/io";
 import { FaRegStar } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import { HiOutlineChatBubbleLeftEllipsis } from "react-icons/hi2";
+import Loading from "../components/Loading";
+import { motion } from "framer-motion";
 
 const ProductPage = () => {
   const [product, setProduct] = useState([]);
@@ -15,15 +17,22 @@ const ProductPage = () => {
     useContext(CartContext);
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const fetchProducts = () => {
+    setLoading(true);
     axios
       .get("/api/products")
       .then((response) => {
         setProduct(response.data[0]);
-        console.log(response.data[0]);
+
+        setLoading(false);
       })
       .catch((error) => console.error(error));
+  };
+
+  useEffect(() => {
+    fetchProducts();
   }, []);
 
   const handleIncrease = () => setQuantity(quantity + 1);
@@ -35,26 +44,9 @@ const ProductPage = () => {
     setModalOpen(true);
   };
 
-  {
-    /*
-    
-      const handleBuyNow = () => {
-    // Save cart data to database, then reset
-    console.log({
-      quantity,
-      selectedColor,
-      selectedSize,
-      timestamp: new Date().toISOString(),
-    });
-    setModalOpen(false);
-    setQuantity(1);
-  };
-    
-    */
-  }
-
   return (
     <>
+      {loading && <Loading />}
       {product ? (
         <div className="product-page mt-3 container">
           <div className="image-gallery">
@@ -63,7 +55,19 @@ const ProductPage = () => {
             )}
           </div>
 
-          <div className="product-info">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              ease: "easeOut",
+              delay: 1.6,
+              duration: 0.7,
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+            }}
+            className="product-info"
+          >
             <div className="nav-history">
               <ul>
                 <li>
@@ -145,6 +149,7 @@ const ProductPage = () => {
               <div className="d-flex">
                 {product.colors?.map((color, index) => (
                   <div
+                    key={index}
                     style={
                       color === selectedColor
                         ? {
@@ -155,6 +160,7 @@ const ProductPage = () => {
                             boxSizing: "border-box",
                             height: "45px",
                             width: "45px",
+                            transition: "all 0.2s",
                           }
                         : {
                             margin: "10px",
@@ -162,8 +168,9 @@ const ProductPage = () => {
                     }
                   >
                     <button
-                      key={index}
-                      className="colors"
+                      className={
+                        color === selectedColor ? "selectedcolor" : "colors"
+                      }
                       style={{ background: color }}
                       onClick={() => setSelectedColor(color)}
                     >
@@ -226,7 +233,7 @@ const ProductPage = () => {
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {modalOpen && (
             <Modal

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { motion } from "framer-motion";
 
 export default function ProductImages({ images }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -17,9 +18,35 @@ export default function ProductImages({ images }) {
   return (
     <>
       <div className="image-container">
-        <img className="main-image" src={images[activeIndex]} alt="product" />
+        <motion.img
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{
+            ease: "easeOut",
+            delay: 1.6,
+            duration: 0.7,
+            type: "spring",
+            stiffness: 260,
+            damping: 20,
+          }}
+          className="main-image"
+          src={images[activeIndex]}
+          alt="product"
+        />
       </div>
-      <div className="thumbnail-images mt-3">
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{
+          ease: "easeOut",
+          delay: 1.6,
+          duration: 0.7,
+          type: "spring",
+          stiffness: 260,
+          damping: 20,
+        }}
+        className="thumbnail-images mt-3"
+      >
         <button onClick={handlePrevious} className="arrow-btn previous">
           <IoIosArrowBack />
         </button>
@@ -38,7 +65,7 @@ export default function ProductImages({ images }) {
         <button onClick={handleNext} className="arrow-btn next">
           <IoIosArrowForward />
         </button>
-      </div>
+      </motion.div>
     </>
   );
 }

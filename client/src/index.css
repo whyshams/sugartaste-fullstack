@@ -27,6 +27,10 @@ header {
   cursor: pointer;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 5px;
+  transition: all 0.3s;
+}
+.cart:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
 .cart small {
   font-size: 10px;
@@ -130,6 +134,14 @@ header {
 .nav-history li div {
   padding-bottom: 0;
 }
+.selectedcolor {
+  margin: 5px;
+  border: 5px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+}
 .colors {
   margin: 5px;
   border: 5px solid white;
@@ -137,6 +149,10 @@ header {
   cursor: pointer;
   height: 40px;
   width: 40px;
+  transition: all 0.3s;
+}
+.colors:hover {
+  border: 5px solid black;
 }
 
 .desc-long-line {
@@ -178,15 +194,21 @@ header {
   border: 1px solid #f3f3f3;
   border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s;
 
   font-size: 12px;
 }
-
-.color-button.selected,
-.size-button.selected {
-  border: 2px solid #3a4980;
+.size-button:hover {
+  border: 1px solid #3a4980;
   background: #edf0f8;
   color: #3a4980;
+}
+.color-button.selected,
+.size-button.selected {
+  border: 1px solid #3a4980;
+  background: #edf0f8;
+  color: #3a4980;
+  transition: all 0.2s;
 }
 
 .quantity-controls {
@@ -273,6 +295,12 @@ header {
   height: 50px;
   border: none;
   border-radius: 150px;
+  transition: all 0.3s;
+}
+.buy-now-btn:hover {
+  background-color: white;
+  border: 1px solid #3a4980;
+  color: #3a4980;
 }
 .modal-quantity {
   background-color: #f3f3f3;
@@ -338,7 +366,26 @@ header {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.circle {
+  position: relative;
 
+  aspect-ratio: 1;
+}
+
+.letter {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  font-family: "Rubik Mono One", sans-serif;
+  font-weight: bold;
+  color: #0d3356;
+}
+.loading {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /* Responsive design */
 @media (max-width: 768px) {
   .modal-contents {
@@ -453,6 +500,12 @@ header {
   height: 45px;
   border: none;
   border-radius: 150px;
+  transition: all 0.3s;
+}
+.add-to-cart-button-page:hover {
+  background-color: white;
+  border: 1px solid #3a4980;
+  color: #3a4980;
 }
 
 .modal-main {
